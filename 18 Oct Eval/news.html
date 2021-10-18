@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        #searchbox{
+            display: flex;
+        }
         #container{
             width: 70%;
             margin: auto;
@@ -22,6 +25,10 @@
     </style>
 </head>
 <body>
+    <div id="searchbox">
+        <input type="text" id="query">
+        <button onclick="getSearchedNews()">Search for news</button>
+    </div>
     <div id="container">
         <h1 id="title"></h1>
         <p id="author"></p>

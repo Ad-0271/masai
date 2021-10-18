@@ -6,7 +6,6 @@ async function getParticularNews(){
 
     let data = await res.json();
 
-    console.log(data);
     appendNews(data.articles[0]);
 }
 
@@ -39,6 +38,19 @@ function appendNews(data){
     content.innerHTML = data.content;
 
     descript.append(para, content);
+}
 
+if(localStorage.getItem('searched_query') == null){
+    localStorage.setItem('searched_query', JSON.stringify([]));
+}
 
+function getSearchedNews(){
+
+    let query = document.getElementById('query').value;
+
+    let q = {query};
+
+    localStorage.setItem('searched_query', JSON.stringify(q));
+
+    window.location = 'search.html';
 }
