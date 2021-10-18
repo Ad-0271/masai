@@ -8,21 +8,40 @@ async function getParticularNews(){
     let data = await res.json();
 
     console.log(data.articles);
+    appendNews(data.articles[0]);
 }
 
 getParticularNews();
 
+let heading = document.getElementById('title');
+
+let author = document.getElementById('author');
+
 let imgdiv = document.getElementById('imagediv');
 
-let heading = document.getElementById('')
+let descript = document.getElementById('description');
 
 function appendNews(data){
+    console.log(data);
+    // heading.innerHTML = null;
 
     imgdiv.innerHTML = null;
 
+    heading.innerHTML = data.title;
+
+    author.innerHTML = `${data.author} / ${data.publishedAt}`;
 
     let img = document.createElement('img');
     img.src = q.img;
     imgdiv.appendChild(img);
+
+    let para = document.createElement('p');
+    para.innerHTML = data.description;
+    
+    let content = document.createElement('p');
+    content.innerHTML = data.content;
+
+    descript.append(para, content);
+
 
 }
