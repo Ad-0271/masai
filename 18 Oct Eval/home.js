@@ -11,28 +11,44 @@ async function getTopStories(){
 
 getTopStories();
 
+if(localStorage.getItem('query') == null){
+    localStorage.setItem('query',JSON.stringify([]));
+}
+
 let container = document.getElementById('topstories');
 
 function appendNews(news_data){
+    console.log(news_data)
 
     news_data.forEach((data) => {
         let div = document.createElement('div');
+        div.onclick = () =>{
+            let q = JSON.parse(localStorage.getItem('query'));
+            console.log(q);
+            q[0] = data.title;
+            console.log(q);
+            localStorage.setItem('query', JSON.stringify(q));
+            window.location = 'news.html';
+        }
 
         let imgdiv = document.createElement('div');
         
         let img = document.createElement('img');
         img.src = data.urlToImage;
-        img.style.width = '100%';
-        console.log(data.urlToImage)
-
-
         imgdiv.append(img);
-        div.append(imgdiv);
+
+        let titlediv = document.createElement('div');
+
+        let title = document.createElement('h3');
+        title.textContent = data.title;
+        console.log(title);
+        titlediv.appendChild(title);
+
+        let descriptiondiv = document.createElement('div');
+        descriptiondiv.textContent = data.description;
+        
+        div.append(imgdiv, titlediv, descriptiondiv);
         container.appendChild(div);
     })
-
-    
-
-
 
 }
