@@ -24,10 +24,10 @@ function appendNews(news_data){
         let div = document.createElement('div');
         div.onclick = () =>{
             let q = JSON.parse(localStorage.getItem('query'));
-            console.log(q);
-            q[0] = data.title;
-            console.log(q);
-            localStorage.setItem('query', JSON.stringify(q));
+            let title = data.title;
+            let img = data.urlToImage;
+            let info = {title, img};
+            localStorage.setItem('query', JSON.stringify(info));
             window.location = 'news.html';
         }
 
