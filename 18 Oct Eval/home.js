@@ -23,7 +23,6 @@ function appendNews(news_data){
     news_data.forEach((data) => {
         let div = document.createElement('div');
         div.onclick = () =>{
-            let q = JSON.parse(localStorage.getItem('query'));
             let title = data.title;
             let img = data.urlToImage;
             let info = {title, img};
@@ -51,4 +50,19 @@ function appendNews(news_data){
         container.appendChild(div);
     })
 
+}
+
+if(localStorage.getItem('searched_query') == null){
+    localStorage.setItem('searched_query', JSON.stringify([]));
+}
+
+function getSearchedNews(){
+
+    let query = document.getElementById('query').value;
+
+    let q = {query};
+
+    localStorage.setItem('searched_query', JSON.stringify(q));
+
+    window.location = 'search.html';
 }
