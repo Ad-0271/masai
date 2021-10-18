@@ -6,16 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        div{
+            border: 1px solid black;
+        }
         #searchbox{
             display: flex;
         }
         #topstories{
             display: grid;
-            grid-template-columns: repeat(3, 20%);
+            grid-template-columns: 90%;
             grid-gap: 3%;
         }
         #topstories > div{
-            height: 400px;
+            display: grid;
+            grid-template-columns: repeat(3, 25%);
+            grid-gap: 3%;
+            height: 150px;
         }
     </style>
 </head>
