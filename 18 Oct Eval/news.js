@@ -1,5 +1,4 @@
 let q = JSON.parse(localStorage.getItem('query'));
-console.log(q);
 
 async function getParticularNews(){
     
@@ -7,7 +6,7 @@ async function getParticularNews(){
 
     let data = await res.json();
 
-    console.log(data.articles);
+    console.log(data);
     appendNews(data.articles[0]);
 }
 
@@ -22,8 +21,6 @@ let imgdiv = document.getElementById('imagediv');
 let descript = document.getElementById('description');
 
 function appendNews(data){
-    console.log(data);
-    // heading.innerHTML = null;
 
     imgdiv.innerHTML = null;
 

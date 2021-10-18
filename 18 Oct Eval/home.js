@@ -2,7 +2,7 @@
 
 async function getTopStories(){
 
-    let res = await fetch(`http://newsapi.org/v2/top-headlines?country=us&apiKey=4ec475e9bfdf4c0b8baf308ee9a88afe`)
+    let res = await fetch(`http://newsapi.org/v2/top-headlines?country=us&cn&ae&ar&au&ru&sa&in&fr&ga&ca&apiKey=4ec475e9bfdf4c0b8baf308ee9a88afe`)
 
     let data = await res.json();
 
@@ -18,7 +18,6 @@ if(localStorage.getItem('query') == null){
 let container = document.getElementById('topstories');
 
 function appendNews(news_data){
-    console.log(news_data)
 
     news_data.forEach((data) => {
         let div = document.createElement('div');
@@ -40,7 +39,6 @@ function appendNews(news_data){
 
         let title = document.createElement('h3');
         title.textContent = data.title;
-        console.log(title);
         titlediv.appendChild(title);
 
         let descriptiondiv = document.createElement('div');
