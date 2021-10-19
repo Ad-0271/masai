@@ -7,9 +7,6 @@
     <title>Document</title>
     
     <style>
-        div{
-            border: 1px solid black;
-        }
         #navbar{
             display: flex;
             height: 100px;
@@ -130,7 +127,7 @@
         container.innerHTML = null;
 
         data.forEach(({id : {videoId}, snippet : {title, description, channelTitle}}) => {
-            console.log(videoId, snippet);
+            console.log(videoId, title, description, channelTitle);
             
             let div = document.createElement('div');
 
@@ -139,16 +136,16 @@
 
             let description_div = document.createElement('div');
             
-            let title = document.createElement('h3');
-            title.innerHTML = snippet.title;
+            let vid_title = document.createElement('h3');
+            vid_title.textContent = title;
 
             let descript = document.createElement('p');
-            descript.innerHTML = snippet.description;
+            descript.textContent = description;
 
-            let channelTitle = document.createElement('h4');
-            channelTitle.innerHTML = snippet.channelTitle;
+            let channelname = document.createElement('h4');
+            channelname.textContent = channelTitle;
 
-            description_div.append(title, descript, channelTitle);
+            description_div.append(vid_title, descript, channelname);
 
             div.append(video_div, description_div);
             
