@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    input {
+      width: 200px;
+    }
+
+    #navbar{
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+    }
+
+    #movies {
+      height: 200px;
+      width: 206px;
+      border: 1px solid black;
+      overflow: scroll;
+      border-top: none;
+      display: none;
+    }
+    #container > div{
+      width: 280px;
+      margin: auto;
+      border: 1px solid black;
+    }
+    #popular_movies{
+      display: grid;
+      grid-template-columns: repeat(4, 20%);
+      grid-gap: 2%;
+      justify-content: center;
+    }
+    #popular_movies > div{
+      height: 600px;
+    }
+    h1{
+      text-align: center;
+    }
+    h3{
+      margin: 0;
+    }
+  </style>
+  <body>
+    <div id="navbar">
+      <div>
+        <label for="">Search Movie</label>
+        <input oninput="debounce(main, 1000)" type="text" id="movie" placeholder="Enter movie name" />
+        <div id="movies"></div>
+      </div>
+      <div><a href="./sign_up.html"><h3 id="username">Sign-up</h3></a></div>
+    </div>
+    <hr>
+    <div id="container"></div>
+    <div>
+      <h1>Popular movies</h1>
+      <div id="popular_movies"></div>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  let popularMovies = document.getElementById('popular_movies')
+  async function getPopularMovies(){
+
+    let res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=bed5d051ee87c80810e341de91ae24fd`);
+
+    let popular_data = await res.json();
+    console.log(popular_data.results)
+
+    popular_data.results.forEach((movie) => {
+
+      let div = document.createElement('div');
+
+      let img = document.createElement('img');
+      img.style.width = '100%';
+      img.style.height = '70%';
+      img.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+
+      let title = document.createElement('p');
+      title.innerHTML = movie.title;
+
+      let release_date = document.createElement('p');
+      release_date.innerHTML = movie.release_date;
+
+      div.append(img, title, release_date);
+
+      div.onclick = () => {
+        getParticularMovie(movie.title);
+      }
+
+      popularMovies.appendChild(div);
+    });
+  }
+
+  getPopularMovies();
+
+  let movies_box = document.getElementById('movies');
+
+    async function getMovies(moviename){
+
+        try{
+            let res = await fetch(`http://www.omdbapi.com/?apikey=819d7260&s=${moviename}`);
+
+            let data = await res.json();
+
+            return data;
+            // console.log(data);
+        } catch(error){
+            console.log(error);
+        }
+    }
+
+    function appendMovies(movie){
+        if (movies == undefined){
+            return false;
+        }
+        movies_box.style.display = 'block';
+        movies_box.innerHTML = null;
+
+        movie.forEach(function (movie_data) {
+
+            let div = document.createElement('div');
+
+            let p = document.createElement('p');
+            
+            p.innerHTML = movie_data.Title;
+
+            div.appendChild(p);
+
+            div.onclick = () => {
+              getParticularMovie(movie_data.Title);
+            }
+
+            movies_box.appendChild(div);
+        });
+    }
+
+    let container = document.getElementById('container');
+    async function getParticularMovie(movie){
+
+      let res = await fetch(`http://www.omdbapi.com/?apikey=819d7260&t=${movie}`)
+
+      let data = await res.json();
+      console.log(data);
+
+      container.innerHTML = null;
+      movies_box.style.display = 'none';
+
+      let div = document.createElement('div');
+      
+      let imgdiv = document.createElement('div');
+      imgdiv.style.width = '100%';
+      imgdiv.style.height = '400px'
+      imgdiv.style.backgroundImage = `url(${data.Poster})`;
+      imgdiv.style.backgroundSize = 'contain';
+      imgdiv.style.backgroundRepeat = 'no-repeat';
+
+      let img = document.createElement('img');
+      img.src = data.Poster;
+
+      let title = document.createElement('h3');
+      title.innerHTML = data.Title;
+
+      let genre = document.createElement('p');
+      genre.innerHTML = data.Genre;
+
+      let year = document.createElement('p');
+      year.innerHTML = data.Year;
+
+      let rating = document.createElement('p');
+      rating.innerHTML = `ImdbRating: ${data.imdbRating}`;
+
+      let caste = document.createElement('p');
+      caste.innerHTML = `Caste: ${data.Actors}`
+
+      if (data.imdbRating > 8.5){
+          let recommend = document.createElement('div');
+          recommend.style.width = '100px';
+          recommend.style.backgroundColor = 'yellow';
+          recommend.innerHTML = 'Recommended';
+
+          imgdiv.appendChild(recommend);
+      }
+
+      div.append(imgdiv, title, genre, year, rating, caste);
+
+      container.appendChild(div);
+
+
+    }
+
+    async function main(){
+        let name = document.getElementById('movie').value;
+
+        if(name.length < 3){
+            return false;
+        }
+
+        let res = await getMovies(name);
+
+        let movies_data = res.Search;
+
+        appendMovies(movies_data);
+
+    }
+
+    let timerId;
+
+    function debounce(func, time){
+
+        clearTimeout(timerId);
+        
+        timerId = setTimeout(function() {
+            func();
+        },time);
+    }
+
+    let user = JSON.parse(localStorage.getItem('movie_user'));
+
+    let userName = document.getElementById('username');
+
+    userName.innerHTML = user.username;
+</script>
