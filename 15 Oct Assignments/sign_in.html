@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 600px;
+            margin: auto    ;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <h1>Signup</h1>
+        <form action="" id="form" onsubmit="login(event)">
+            
+            <label for="">Username</label>
+            <input type="text" id="username" placeholder="Enter username"><br>
+            <label for="">Password</label>
+            <input type="password" id="password" placeholder="Enter password"><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+
+    if (localStorage.getItem('youtube_user') == null){
+        localStorage.setItem('youtube_user', JSON.stringify([]));
+    }
+
+    function login(e){
+        e.preventDefault();
+
+        let myform = document.getElementById('form');
+        
+        let username = myform.username.value;
+
+        let password = myform.password.value;
+
+        let user = {username, password};
+
+        let data_to_send = JSON.stringify(user);
+        
+        fetch("https://masai-api-mocker.herokuapp.com/auth/login", {
+            method: 'POST',
+            body: data_to_send,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+            if(res.message == 'Invalid login creadentials'){
+                alert(res.message);
+            } else {
+                fetchuserdata(username, res.token);
+            }
+        })
+        .catch((err) => {
+            alert(err);
+        })
+    }
+
+    function fetchuserdata(username, token){
+        fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`, {
+            headers : {
+                'Content-type' : 'application/json',
+                'Authorization' : `Bearer ${token}`,
+            }
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            localStorage.setItem('youtube_user', JSON.stringify(res));
+            window.location = './youtubeApp.html';
+        })
+        .catch((err) => {
+            console.log((err));
+        })
+    }
+</script>
