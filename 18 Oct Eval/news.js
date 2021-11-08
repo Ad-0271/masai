@@ -20,7 +20,7 @@ let imgdiv = document.getElementById('imagediv');
 let descript = document.getElementById('description');
 
 function appendNews(data){
-
+    console.log(data);
     imgdiv.innerHTML = null;
 
     heading.innerHTML = data.title;
