@@ -21,6 +21,10 @@
 <body>
     <div id="navbar"></div>
     <div id="container"></div>
+    <div>
+        <h4>Total :<span id="total"></span></h4>
+    </div>
+    <button id="order">Place Order</button>
 </body>
 </html>
 
@@ -36,13 +40,16 @@
 
     let container = document.getElementById('container');
 
+    let total = 0;
+
     appendMeals(data);
 
     
     function appendMeals(data){
         
         data.forEach((el) => {
-            console.log(el)
+            total += el.price;
+
             let div = document.createElement('div');
 
             let img_div = document.createElement('img');
@@ -57,5 +64,31 @@
             div.append(img_div, name_div, price_div);
             container.append(div);
         })
-}
+    }
+    let tot_div = document.getElementById('total');
+    tot_div.innerHTML = total;
+
+
+    let btn = document.getElementById('order');
+    btn.addEventListener('click', placeOrder); 
+    function placeOrder(){
+
+        alert('Your order is accepted');
+        let m2 = setTimeout(() => {
+            alert('Your order is being cooked');
+        }, 3000)
+
+        let m3 = setTimeout(() => {
+            alert('Your order is ready');
+        }, 8000);
+
+        let m4 = setTimeout(() => {
+            alert('Order out for delivery');
+        }, 10000)
+
+        let m5 = setTimeout(() => {
+            alert('Order delivered')
+        }, 12000)
+
+    }
 </script>
