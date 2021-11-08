@@ -10,7 +10,11 @@
         #container{
             display: grid;
             grid-template-columns: repeat(4, 20%);
-            gap: 20px;
+            gap: 5%;
+            margin-top: 20px;
+        }
+        img{
+            width: 100%;
         }
     </style>
 </head>
@@ -27,4 +31,33 @@
     let navbar_div = document.getElementById('navbar');
     navbar_div.innerHTML = navbar();
 
+    async function getMeals(){
+
+        let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood`)
+
+        let data = await res.json();
+        appendMeals(data.meals);
+    }
+
+    getMeals();
+
+    let container = document.getElementById('container');
+    function appendMeals(data){
+
+        data.forEach((el) => {
+            let div = document.createElement('div');
+
+            let img = document.createElement('img');
+            img.src = el.strMealThumb;
+
+            let name = document.createElement('p');
+            name.innerHTML = el.strMeal;
+
+            let price = document.createElement('p');
+            price.innerHTML = el.id;
+
+            div.append(img, name, price);
+            container.append(div);
+        })
+    }
 </script>
