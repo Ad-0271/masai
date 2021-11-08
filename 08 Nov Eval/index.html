@@ -5,8 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        /* #navbar{
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            border: 1px solid black;
+            padding-top: 20px;
+            padding-right: 50px;
+            height: 40px;
+        } */
+    </style>
 </head>
 <body>
-    
+    <div id="navbar">
+        <a href="menu.html"><div>Menu</div></a>
+        <a href="login.html"><div>Login</div></a>
+        <a href="signup.html"><div>SignUp</div></a>
+    </div>
 </body>
 </html>
+
+<script type="module">
+
+    import navbar from './components/navbar.js';
+
+    let navbar_div = document.getElementById('navbar');
+    navbar_div.innerHTML = navbar();
+</script>
