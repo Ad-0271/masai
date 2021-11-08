@@ -36,6 +36,7 @@
         let res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood`)
 
         let data = await res.json();
+        console.log(data.meals)
         appendMeals(data.meals);
     }
 
@@ -54,10 +55,35 @@
             name.innerHTML = el.strMeal;
 
             let price = document.createElement('p');
-            price.innerHTML = el.id;
+            price.innerHTML = '₹' + Math.floor(el.idMeal / 10);
 
-            div.append(img, name, price);
+            let cart = document.createElement('button');
+            cart.innerHTML = 'Add to cart';
+            cart.onclick = () => {
+                addtocart(el.strMealThumb, el.strMeal, Math.floor(el.idMeal / 10));
+            }
+
+            div.append(img, name, price, cart);
             container.append(div);
         })
+    }
+
+    if (localStorage.getItem('food_cart') == null){
+        localStorage.setItem('food_cart', JSON.stringify([]))
+    }
+
+    function addtocart(img, name, price){
+        console.log(img, name, price);
+
+        let data = {
+            img,
+            name,
+            price
+        }
+        let cart = JSON.parse(localStorage.getItem('food_cart'));
+
+        cart.push(data);
+
+        localStorage.setItem('food_cart', JSON.stringify(cart));
     }
 </script>
