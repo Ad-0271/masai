@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <h1>Signup</h1>
+        <form action="" id="form" onsubmit="signup(event)">
+            <label for="">Name</label>
+            <input type="text" id="name" placeholder="Enter your name"><br>
+            <label for="">Email</label>
+            <input type="text" id="email" placeholder="Enter your email"><br>
+            <label for="">Password</label>
+            <input type="password" id="password" placeholder="Enter password"><br>
+            <label for="">Username</label>
+            <input type="text" id="username" placeholder="Enter username"><br>
+            <label for="">Mobile</label>
+            <input type="number" id="mobile" placeholder="Enter mobile number"><br>
+            <label for="">Description</label>
+            <input type="text" id="descript" placeholder="Enter description"><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <a href="./login.html"><button>Login</button></a>
+</body>
+</html>
+
+<script>
+    function signup(e){
+        e.preventDefault();
+
+        let myform = document.getElementById('form');
+
+        let name = myform.name.value;
+        
+        let email = myform.email.value;
+
+        let password = myform.password.value;
+        
+        let username = myform.username.value;
+        
+        let mobile = myform.mobile.value;
+
+        let description = myform.descript.value;
+
+        let user = {name, email, password, username, mobile, description};
+
+        user = JSON.stringify(user);
+
+        fetch("https://masai-api-mocker.herokuapp.com/auth/register", {
+            method: 'POST',
+            body: user,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+
+        // let user = {
+        //     name,
+        //     email,
+        //     password,
+        // };
+    }
+</script>
