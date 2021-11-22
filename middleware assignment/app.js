@@ -4,27 +4,29 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.json())
+
 const logger = (req, res, next) => {
-    req.name = "Adnan";
+    req.api_requested_by = "Adnan";
     next();
 }
 
 app.use(logger);
 
 app.get('/', (req, res) => {
-    res.send({api_requested_by: req.name, books});
+    res.send({api_requested_by: req.api_requested_by, books});
 })
 
 app.get('/books/:id', (req, res) => {
     const book = books.filter((el) => {
         return el.id == req.params.id;
     });
-    res.json({api_requested_by : req.name, book});
+    res.send({api_requested_by : req.api_requested_by, book});
 })
 
 app.post('/books', (req, res) => {
     books.push(req.body);
-    res.send({api_requested_by : req.name, books});
+    res.send({api_requested_by : req.api_requested_by, books});
 })
 
 app.patch('/books/:id', (req, res) => {
@@ -38,7 +40,7 @@ app.patch('/books/:id', (req, res) => {
         return el;
     });
 
-    res.send({api_requested_by: req.name, books});
+    res.send({api_requested_by: req.api_requested_by, books});
 })
 
 app.delete('/books/:id', (req, res) => {
@@ -46,7 +48,7 @@ app.delete('/books/:id', (req, res) => {
         return el.id != req.params.id;
     })
 
-    res.send({api_requested_by: req.name, books})
+    res.send({api_requested_by: req.api_requested_by, books})
 })
 
 app.listen(2701, () => {
