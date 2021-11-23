@@ -1,0 +1,47 @@
+Inserting 10 documents in users collection using both insert and insertMany:
+
+	db.users.insert({first_name: 'Bat', last_name: 'Man', email: 'batman@gmail.com', gender: 'Male', ip_address: '155.0.0.0', age: '35'})
+	db.users.insert({first_name: 'Super', last_name: 'Man', email: 'superman@gmail.com', gender: 'Male', ip_address: '155.1.0.0', age: '45'})
+
+	db.users.insertMany([{first_name: 'Iron', last_name: 'Man', email: 'ironman@gmail.com', gender: 'Male', ip_address: '155.2.0.0', age: '30'}, 
+			     {first_name: 'Dead', last_name: 'Pool', email: 'deadpool@gmail.com', gender: 'Male', ip_address: '155.3.0.0', age: '39'},
+			     {first_name: 'Thor', last_name: 'Odinson', email: 'thorodinson@gmail.com', gender: 'Male', ip_address: '155.4.0.0', age: '1500'},
+			     {first_name: 'Black', last_name: 'Panther', email: 'blackpanther@gmail.com', gender: 'Male', ip_address: '155.5.0.0', age: '30'},
+			     {first_name: 'Captain', last_name: 'America', email: 'captainamerica@gmail.com', gender: 'Male', ip_address: '155.6.0.0', age: '30'},
+			     {first_name: 'Captain', last_name: 'Marvel', email: 'captainmarvel@gmail.com', gender: 'Female', ip_address: '155.7.0.0', age: '29'},
+			     {first_name: 'Wondar', last_name: 'Woman', email: 'wondarwoman@gmail.com', gender: 'Female', ip_address: '155.8.0.0', age: '28'},
+			     {first_name: 'Bat', last_name: 'Woman', email: 'batwoman@gmail.com', gender: 'Female', ip_address: '155.9.0.0', age: '27'}])
+
+
+Selecting all the documents in collection using find and also selecting single document using findOne:
+	
+	db.users.find() //thsi will return all the document in the collection
+ 
+	db.users.find({last_name: 'Man'}) //this will return all the document with last_name = Man
+ 
+	db.users.findOne({last_name: 'Man'}) //this will return first in the document with last_name = Man
+
+
+Updating documents using update and updateMany:
+
+	db.users.update({first_name: 'Bat'}, {$set : {age: '25'}})
+
+	db.users.updateMany({first_name: 'Captain'}, {$set : {age : '36'}})
+
+Deleting documents:
+
+	db.users.remove({last_name: 'Man'}) //removes all the document with last_name = Woman
+
+	db.users.remove({first_name: 'Captain'}, 1) //removes only one document with first_name = Captain
+
+	db.users.deleteOne({gender: 'Male'}) //deletes one document with gender = Male
+
+	db.users.deletMany({gender: 'Male'}) //delets all document with gender = Male
+
+
+Deleting Database:
+
+	db.dropDatabase()
+	
+	
+	
