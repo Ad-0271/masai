@@ -16,6 +16,11 @@ const companySchema = new mongoose.Schema({
     timestamps: true
 });
 
+const jobSchema = new mongoose.Schema({
+    job_title: {type: String, required: true},
+    
+})
+
 const Company = mongoose.model('company', companySchema);
 
 app.use(express.json());
