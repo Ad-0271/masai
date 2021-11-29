@@ -8,7 +8,7 @@ const connect = () => {
 }
 
 const companySchema = new mongoose.Schema({
-    company_name: {type: String, required: true},
+    company_name: {type: String, required: true, unique: true},
     company_address: {type: String, required: true},
     
 }, {
@@ -18,8 +18,8 @@ const companySchema = new mongoose.Schema({
 
 const jobSchema = new mongoose.Schema({
     job_title: {type: String, required: true},
-    job_type: {type: String, required: true}
-
+    type: {type: String, required: true},
+    rating: {type: String, required: true}
 }, {
     versionKey: false,
     timestamps: true
@@ -62,6 +62,16 @@ app.post('/job', async (req, res) => {
         const job = await Job.create(req.body);
 
         res.status(200).send(job);
+    } catch(e){
+        res.status(500).send({status: 'fail', message: e.message})
+    }
+})
+
+app.get('/job', async (req, res) => {
+    try{
+        const jobs = await Job.find().lean().exec();
+
+        res.status(200).send(jobs);
     } catch(e){
         res.status(500).send({status: 'fail', message: e.message})
     }
