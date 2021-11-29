@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 const connect = () => {
-    return mongoose.connect('mongodb://127.0.0.1:27017/eval');
+    return mongoose.connect('mongodb+srv://adnan:adnan@cluster0.pptrd.mongodb.net/eval');
 }
 
 const companySchema = new mongoose.Schema({
@@ -18,13 +18,20 @@ const companySchema = new mongoose.Schema({
 
 const jobSchema = new mongoose.Schema({
     job_title: {type: String, required: true},
-    
+    job_type: {type: String, required: true}
+
+}, {
+    versionKey: false,
+    timestamps: true
 })
 
 const Company = mongoose.model('company', companySchema);
 
+const Job = mongoose.model('job', jobSchema);
+
 app.use(express.json());
 
+// CRUD for company
 app.get('/company', async (req, res) => {
     try{
         const companies = await Company.find().lean().exec();
@@ -46,6 +53,19 @@ app.post('/company', async (req, res) => {
     }
 })
 
+
+
+// CRUD for job
+
+app.post('/job', async (req, res) => {
+    try{
+        const job = await Job.create(req.body);
+
+        res.status(200).send(job);
+    } catch(e){
+        res.status(500).send({status: 'fail', message: e.message})
+    }
+})
 
 app.listen(2701, () => {
     connect();
