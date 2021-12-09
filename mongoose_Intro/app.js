@@ -5,17 +5,17 @@ const mongoose = require('mongoose');
 const app = express();
 
 const connect = () => {
-    return mongoose.connect('mongodb://127.0.0.1:27017/entertainment');
+    return mongoose.connect('mongodb://127.0.0.1:27017/movies');
 };
 
 const movieSchema = new mongoose.Schema({
-    movie_name: {type: String, required: true},
+    movie_name: {type: String, required: true, unique: true},
     movie_genre: {type: String, required: true},
     production_year: {type: Number, required: true},
     budget: {type: Number, required: true}
 }, {
     versionKey: false,
-    timeStamp: true
+    timestamps: true
 });
 
 const Movie = mongoose.model('movie', movieSchema);
@@ -27,8 +27,8 @@ app.get('/movie', async (req, res) => {
         const movies = await Movie.find().lean().exec();
 
         res.send(movies);
-    } catch(e){
-        res.status(500).send({status: e.message});
+    } catch(anas){
+        res.status(500).send({status: anas.message});
     }
 });
 
@@ -39,16 +39,16 @@ app.get('/movie/:id', async (req, res) => {
 
         res.status(200).send(movie);
     } catch(e){
-        res.status(500).send({status: 'fail', message: e.message});
+        res.status(500).send({status: 'wrong api', message: e.message});
     }
 });
 
 
-app.post('/movie', async (req, res) => {
+app.post('/adnan', async (req, res) => {
     try{
         const movie = await Movie.create(req.body);
     
-        res.status(201).send(movie);
+        res.status(200).send(movie);
         
     } catch(e){
         res.status(500).send({status: e.message});
