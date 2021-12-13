@@ -13,7 +13,6 @@ router.delete('/:id', crudController.deleteOne(Movie));
 //get movie of a actor
 router.get('/actor/:id', async (req, res) => {
     try{
-        console.log(req.params.id)
         const items = await Movie.find({actors: {$eq: req.params.id}}).lean().exec();
         
         res.status(200).send(items);
