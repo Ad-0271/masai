@@ -20,7 +20,6 @@ const getOne = (model) => async (req, res) => {
 
 const post = (model) => async (req, res) => {
     try{
-        console.log(req.body)
         const item = await model.create(req.body);
 
         res.status(200).send(item);
