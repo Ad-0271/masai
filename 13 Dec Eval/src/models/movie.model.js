@@ -5,6 +5,9 @@ const movieSchema = new mongoose.Schema({
     actors: [{type: String, required: true}],
     languages: [{type: String, required: true}],
     directors: [{type: String, required: true}]
+}, {
+    versionKey: false,
+    timestamps: true
 })
 
 module.exports = mongoose.model('movie', movieSchema);
