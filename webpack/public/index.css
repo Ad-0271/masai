@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.logo {
+  width: 100px;
+  height: 100px;
+}
+img {
+  width: 100%;
+}
+.text-area {
+  width: 300px;
+  height: 150px;
+}
+.middle-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+h2 {
+  text-align: center;
+}
+.notes_div {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 20% 20% 20%;
+  gap: 20px;
+}
+.notes_div > div {
+  height: 100px;
+  border: 1px solid black;
+}
