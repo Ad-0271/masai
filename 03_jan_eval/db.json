@@ -1,0 +1,20 @@
+{
+  "recipes": [
+    {
+      "title": "Biryani",
+      "ingredients": "Rice, Meat, salt",
+      "time_required": "1 hour",
+      "instructions": "Mix all the ingredients and cook for 1 hour",
+      "image_url": "https://foodish-api.herokuapp.com/images/samosa/samosa3.jpg",
+      "id": 1
+    },
+    {
+      "title": "Pizza",
+      "ingredients": "Tomato, Capsicum, salt",
+      "time_required": "0:30 hour",
+      "instructions": "Mix all ingredients and cood for half an hour",
+      "image_url": "https://foodish-api.herokuapp.com/images/biryani/biryani48.jpg",
+      "id": 2
+    }
+  ]
+}
