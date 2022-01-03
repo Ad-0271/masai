@@ -49,6 +49,7 @@ export const FoodRecipe = () => {
           display: "flex",
           justifyContent: "space-between",
           width: "600px",
+          margin: "auto",
         }}
       >
         <RecipeInput getData={getData} />
