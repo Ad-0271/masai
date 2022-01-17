@@ -1,0 +1,13 @@
+{
+  "jobs": [
+    {
+      "company_name": "L&T",
+      "job_title": "Full Stack Developer",
+      "salary_range": "500,000 - 700,000",
+      "job_description": "Required MERN stack developer",
+      "location": "Mumbai",
+      "job_type": "remote_work",
+      "id": 1
+    }
+  ]
+}
